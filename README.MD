@@ -11,7 +11,7 @@ The project involves creating a programming language called SetLang, which compi
 - GCC 
 - Make
 
-1. [x] Download the code from Git-Hub https://github.com/deanitzhak/EZWait.git
+1. [x] Download the code from Git-Hub https://github.com/shir149/compiler.git
 2. [x] Cd to the working directory and start the server using the following command in the
 3. [x] open an ubuntu enviroment
 4. [x] Make sure to install all the dependencies by the action sudo apt-get install bison flex gcc make
