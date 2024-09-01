@@ -1,6 +1,5 @@
 #include "utility_functions.h"
 #include <ctype.h>
-#include "error_management.h"
 #include <stdbool.h>
 int count_strings(char **array)
 {
@@ -131,7 +130,7 @@ int evaluate_condition(int left, int right, const char *operation)
     if (strcmp(operation, "FALSE") == 0)
         return false;
     printf("Invalid operation: %s\n", operation);
-    handleError(NOT_SUPPORTED_ERROR);
+    printf("NOT_SUPPORTED_ERROR");
     return 0;
 }
 
@@ -163,7 +162,7 @@ CutString *split_string(char *input, char delimiter)
     CutString *pair = malloc(sizeof(CutString));
     if (!pair)
     {
-        handleError(MEMORY_ALLOCATION_ERROR);
+        printf("MEMORY_ALLOCATION_ERROR");
     }
     char *delimiter_position = strchr(input, delimiter);
     if (!delimiter_position)
@@ -321,7 +320,7 @@ char **exstract_strings(char **left_array, char **right_array, int left_size, in
     char **result = malloc(sizeof(char *) * (result_size + 1));
     if (!result)
     {
-        handleError(MEMORY_ALLOCATION_ERROR);
+        printf("MEMORY_ALLOCATION_ERROR");
         return NULL;
     }
 

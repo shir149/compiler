@@ -3,7 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#ifndef ERRORS_HOLDER_H
+#define ERRORS_HOLDER_H
 
+
+void handleError(int errorCode);
+
+#endif
 typedef struct Node_struct {
     int type;
     char *key;

@@ -1,6 +1,16 @@
 #include "All_Data.h"
-#include "error_management.h"
-char *result_operation = "alfred";
+
+void handleError(int errorCode) {
+    switch (errorCode) {
+ 
+        default:
+            fprintf(stderr, "Error: Unknown error.\n");
+            break;
+    }
+    exit(EXIT_FAILURE);
+}
+
+char *result_operation = "result";
 int count = 0;
 
 Node_struct *initialize(int type, const char *key)
@@ -525,7 +535,7 @@ bool equal_condition(char *left, char *right, char *operation, void *head)
     }
     else
     {
-        handleError(INVALID_OPERATOR_ERROR);
+        printf("INVALID_OPERATOR_ERROR");
     }
 }
 

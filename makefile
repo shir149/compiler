@@ -9,7 +9,7 @@ FLEX_FLAGS :=
 CFLAGS := -Wall -g
 
 # Source and object files
-SRC_FILES := setlang.tab.c lex.yy.c All_Data.c stack_manager.c error_management.c utility_functions.c logic_handler.c
+SRC_FILES := setlang.tab.c lex.yy.c All_Data.c stack_manager.c utility_functions.c logic_handler.c
 OBJ_FILES := $(SRC_FILES:.c=.o)
 
 # Default target

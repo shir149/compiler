@@ -74,7 +74,7 @@
 #include "All_Data.h"
 #include "stack_manager.h"
 #include "utility_functions.h"
-#include  "error_management.h"
+// #include  "error_management.h"
 /**/
 extern                  int yylex(void);
 extern                  int yyparse(void);
@@ -94,7 +94,7 @@ void                    release_stck();
 void                    pop_all_if_stack();  
 void                    pop_loop_no_brace_statement();
 
-char*                   my_helper = "alfred";
+char*                   my_helper = "result";
 int                     if_block = 0;
 /**/
 void                    read_file_and_process(const char *filename) ;
@@ -2748,7 +2748,7 @@ void pop_loop_statement(){
     Node_struct *left_node = search_node(head, QQ_stack[0]->statement[0]);
     Node_struct *right_node = search_node(head, QQ_stack[0]->statement[1]);
     if(left_node == NULL || right_node == NULL){
-        handleError(NOT_SUPPORTED_ERROR);
+        printf("NOT_SUPPORTED_ERROR");
     }
     int statments_count = list_counter(QQ_stack);
     for(int i = 0; i < right_node->var_count; i++){
@@ -2811,7 +2811,7 @@ void pop_loop_no_brace_statement() {
     Node_struct *right_node = search_node(head, Q_if_statements[0]->statement[1]);
     
     if (left_node == NULL || right_node == NULL) {
-        handleError(NOT_SUPPORTED_ERROR);
+        printf("NOT_SUPPORTED_ERROR");
         return;
     }else{
         Q_if_statements[1] = popStatement(&statement_stack);
@@ -2828,7 +2828,7 @@ void pop_if_else_stack(){
     Statement **Q_if_statements = createStatementArray(stack_count);
     Statement *temp_stack = statement_stack.data[2];
     if(Q_if_statements == NULL || temp_stack == NULL || stack_count == 0){
-        handleError(MEMORY_ALLOCATION_ERROR);
+        printf("MEMORY_ALLOCATION_ERROR");
     }
     for(int i = 0; i < stack_count; i++){
         Q_if_statements[i] = popStatement(&statement_stack);

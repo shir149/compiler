@@ -3,12 +3,11 @@
 #include "stack_manager.h"
 #include "All_Data.h"
 #include "utility_functions.h"
-#include "error_management.h"
-char *stmt_helper = "alfred";
+char *stmt_helper ="result";
 
 bool execute_statement(Statement *statement,void *head) {
     if(head == NULL){
-        handleError(NOT_SUPPORTED_ERROR);
+        printf("NOT_SUPPORTED_ERROR");
         return;
     }
     switch (statement->type) {
@@ -33,7 +32,7 @@ bool execute_statement(Statement *statement,void *head) {
             fprintf(stderr, "Invalid statement type\n");
             break;
     }
-}
+} 
 
 
 void execute_output_statement(char **id, void *head) {
@@ -51,7 +50,7 @@ void execute_output_statement(char **id, void *head) {
 void input_statement_execute(char **statement, void *head) {
     Node_struct *current_node = search_node(head, statement[2]);
     if (current_node == NULL) {
-        handleError(NOT_SUPPORTED_ERROR);
+        printf("NOT_SUPPORTED_ERROR");
         return;
     }
 
@@ -60,7 +59,7 @@ void input_statement_execute(char **statement, void *head) {
     fflush(stdout);
 
     if (fgets(buffer, STRING_SIZE, stdin) == NULL) {
-        handleError(MEMORY_ALLOCATION_ERROR);
+        printf("MEMORY_ALLOCATION_ERROR");
         return;
     }
 
@@ -68,7 +67,7 @@ void input_statement_execute(char **statement, void *head) {
 
     if (current_node->type == INT_VAR) {
         if (atoi(buffer) == 0 && buffer[0] != '0') {
-            handleError(INVALID_INPUT_ERROR);
+            printf("INVALID_INPUT_ERROR");
             return;
         }
         current_node->variables = atoi(buffer);
@@ -78,7 +77,7 @@ void input_statement_execute(char **statement, void *head) {
     char *str_value = malloc(buffer_len + 3); 
 
     if (str_value == NULL) {
-        handleError(MEMORY_ALLOCATION_ERROR);
+        printf("MEMORY_ALLOCATION_ERROR");
         return;
     }
 
@@ -96,7 +95,7 @@ void input_statement_execute(char **statement, void *head) {
  else if (current_node->type == COLLECTION_VAR || current_node->type == SET_VAR) {
     char **current_array = cut_string_by_coma(buffer);
     if (current_array == NULL) {
-        handleError(MEMORY_ALLOCATION_ERROR);
+        printf("MEMORY_ALLOCATION_ERROR");
         return;
     }
 
@@ -114,7 +113,7 @@ void input_statement_execute(char **statement, void *head) {
 
     current_node->variables = (void **)malloc(sizeof(void *) * (CNT + 1));
     if (current_node->variables == NULL) {
-        handleError(MEMORY_ALLOCATION_ERROR);
+        printf("MEMORY_ALLOCATION_ERROR");
         return;
     }
 
@@ -122,7 +121,7 @@ void input_statement_execute(char **statement, void *head) {
         size_t str_len = strlen(current_array[i]);
         char *quoted_str = malloc(str_len + 3);  
         if (quoted_str == NULL) {
-            handleError(MEMORY_ALLOCATION_ERROR);
+            printf("MEMORY_ALLOCATION_ERROR");
             return;
         }
 
@@ -138,7 +137,7 @@ void input_statement_execute(char **statement, void *head) {
 
     free(current_array);
     } else {
-        handleError(NOT_SUPPORTED_ERROR);
+        printf("NOT_SUPPORTED_ERROR");
     }
 }
 
