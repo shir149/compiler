@@ -39,7 +39,7 @@ int countStatementsInStack(const StatementStack *stack);
 
 Statement **createStatementArray(int count);
 
-int glimpseTopOfStack(const StatementStack *stack);
+int getTypeTopOfStack(const StatementStack *stack);
 
 void emptyStatementStack(StatementStack *stack);
 
@@ -47,7 +47,7 @@ void freeStatement(Statement *stmt);
 
 Statement *copyTopOfStack(const StatementStack *stack);
 
-Statement **createQStatementsFromStack(StatementStack *stack);
+Statement **createStatementsFromStack(StatementStack *stack);
 
 int if_nasted_block(Statement **QQ_statements, void *head);
 
@@ -69,7 +69,7 @@ Statement *create_for_statement(char **ids);
 
 Statement *create_assign_statement(char **ids);
 
-Statement **on_revers_createQStatementsFromStack(Statement **Q_if_statements, int count);
+Statement **on_revers_createStatementsFromStack(Statement **Q_if_statements, int count);
 
 int compare_statements(const void *a, const void *b);
 

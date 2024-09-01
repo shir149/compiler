@@ -79,7 +79,7 @@ Statement **createStatementArray(int count)
     return array;
 }
 
-int glimpseTopOfStack(const StatementStack *stack)
+int getTypeTopOfStack(const StatementStack *stack)
 {
     if (isEmpty((StatementStack *)stack))
     {
@@ -169,7 +169,7 @@ Statement *copyTopOfStack(const StatementStack *stack)
     return copy;
 }
 
-Statement **on_revers_createQStatementsFromStack(Statement **Q_if_statements, int count)
+Statement **on_revers_createStatementsFromStack(Statement **Q_if_statements, int count)
 {
     Statement **QQ_stack = createStatementArray(count);
 
@@ -181,7 +181,7 @@ Statement **on_revers_createQStatementsFromStack(Statement **Q_if_statements, in
     return QQ_stack;
 }
 
-Statement **createQStatementsFromStack(StatementStack *stack)
+Statement **createStatementsFromStack(StatementStack *stack)
 {
     int n_statements = countStatementsInStack(stack);
     if (n_statements == 0)
@@ -370,7 +370,7 @@ Statement *create_assign_statement(char **ids)
     Statement *stmt = (Statement *)malloc(sizeof(Statement));
     if (stmt == NULL)
     {
-        fprintf(stderr, "Couldn't Allocate Memory\n");
+        fprintf(stderr, "Memory allocation failed for statement\n");
         return NULL;
     }
     stmt->type = ASSIGNMENT_STATEMENT;

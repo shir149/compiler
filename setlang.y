@@ -525,7 +525,7 @@ void pop_regulation(){
 
 
 void pop_loop_statement(){
-    Statement **QQ_stack = createQStatementsFromStack(&statement_stack);
+    Statement **QQ_stack = createStatementsFromStack(&statement_stack);
     Node_struct *left_node = search_node(head, QQ_stack[0]->statement[0]);
     Node_struct *right_node = search_node(head, QQ_stack[0]->statement[1]);
     if(left_node == NULL || right_node == NULL){
@@ -643,7 +643,7 @@ void pop_if_else_stack(){
 
 void release_stck() {
     while (!isEmpty(&statement_stack)) { 
-        int type = glimpseTopOfStack(&statement_stack);
+        int type = getTypeTopOfStack(&statement_stack);
         if (type == IF_STATEMENT) {
             pop_all_if_stack();  
             if_block = 0;
