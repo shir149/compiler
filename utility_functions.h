@@ -28,9 +28,9 @@ int stringCounter(char **array);
 
 int check_char_digit(char c);
 
-char **cut_string_by_coma(char *input); //
+char **cut_string_by_coma(char *input);
 
-int compare_string(const char *str1, const char *str2); //
+int compare_string(const char *str1, const char *str2);
 
 int int_count(int *array, int check);
 
@@ -38,7 +38,7 @@ int char_count(char *array, char check);
 
 int list_counter(void **list);
 
-char *strdup_func(const char *s); //
+char *strdup_func(const char *s);
 
 char *delete_spaces(char *str);
 
@@ -59,6 +59,5 @@ char *int_to_string(int value);
 CutString *split_string(char *input, char delimiter);
 
 char **concat_arrays(char **left, char **right, int left_size, int right_size);
-
 
 #endif

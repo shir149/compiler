@@ -1,11 +1,13 @@
 #include "All_Data.h"
 
-void handleError(int errorCode) {
-    switch (errorCode) {
- 
-        default:
-            fprintf(stderr, "Error: Unknown error.\n");
-            break;
+void handleError(int errorCode)
+{
+    switch (errorCode)
+    {
+
+    default:
+        fprintf(stderr, "No Such Error\n");
+        break;
     }
     exit(EXIT_FAILURE);
 }
@@ -18,7 +20,7 @@ Node_struct *initialize(int type, const char *key)
     Node_struct *new_node = (Node_struct *)malloc(sizeof(Node_struct));
     if (!new_node)
     {
-        fprintf(stderr, "Memory allocation failed\n");
+        fprintf(stderr, "Couldn't Allocate Memory\n");
         return NULL;
     }
     new_node->type = type;
@@ -53,7 +55,7 @@ void add_variable(Node_struct *node, void *value)
     node->variables = realloc(node->variables, sizeof(void *) * (node->var_count + 1));
     if (!node->variables)
     {
-        fprintf(stderr, "Memory allocation failed\n");
+        fprintf(stderr, "Couldn't Allocate Memory\n");
         return;
     }
     node->variables[node->var_count] = value;
@@ -206,7 +208,7 @@ void set_variables_by_key(char *key, void **new_variables, int new_var_count, No
     Node_struct *node = search_node(head, key);
     if (node == NULL)
     {
-        fprintf(stderr, "didn't find the wanted node %s \n", key);
+        fprintf(stderr, "Couldn't Find Node %s \n", key);
         return;
     }
     for (int i = 0; i < node->var_count; i++)
@@ -231,7 +233,7 @@ void set_variables(Node_struct *node, void **new_variables, int new_var_count)
     node->variables = (void **)malloc(sizeof(void *) * new_var_count);
     if (!node->variables)
     {
-        fprintf(stderr, "Memory allocation failed\n");
+        fprintf(stderr, "Couldn't Allocate Memory\n");
         node->var_count = 0;
         return;
     }
@@ -245,7 +247,6 @@ void set_variables(Node_struct *node, void **new_variables, int new_var_count)
             }
             else
             {
-                printf("new_variables[%d] = %d\n", i, new_variables[i]);
                 node->variables[i] = atoi(new_variables[i]);
             }
         }
@@ -275,9 +276,8 @@ bool plus_operation(char *left, char *right, void *head)
     {
         if (right_node == NULL)
         {
-            if (left_node->type == COLLECTION_VAR) /* add */
+            if (left_node->type == COLLECTION_VAR)
             {
-
                 int new_size = left_node->var_count + 1;
                 void **new_variables = (void **)malloc(sizeof(void *) * new_size);
 
@@ -369,7 +369,7 @@ bool minus_operation(char *left, char *right, void *head)
 {
     Node_struct *left_node = search_node(head, left);
     Node_struct *right_node = search_node(head, right);
-    Node_struct *result_node = search_node(head, result_operation); 
+    Node_struct *result_node = search_node(head, result_operation);
     if (left_node == NULL || right_node == NULL || result_node == NULL)
     {
         return false;
@@ -454,7 +454,6 @@ bool and_operation(char *node_1, char *node_2, void *head)
 
 bool assignments_variables(char *left_node, char *right_node, char *operator, void * head)
 {
-    printf("left_node = %s\n", left_node);
     if (strcmp(operator, "+") == 0)
     {
         return plus_operation(left_node, right_node, head);
@@ -476,13 +475,13 @@ bool copy_all_variables(char *dest_node_key, char *source_node_key, void *head)
 
     if (!dest_node->variables)
     {
-        fprintf(stderr, "Memory allocation failed\n");
+        fprintf(stderr, "Couldn't Allocate Memory\n");
         return false;
     }
 
     for (int i = 0; i < source_node->var_count; i++)
     {
-        dest_node->variables[i] = source_node->variables[i]; 
+        dest_node->variables[i] = source_node->variables[i];
     }
 
     dest_node->var_count = source_node->var_count;
@@ -535,7 +534,7 @@ bool equal_condition(char *left, char *right, char *operation, void *head)
     }
     else
     {
-        printf("INVALID_OPERATOR_ERROR");
+        printf("No Such Operator");
     }
 }
 

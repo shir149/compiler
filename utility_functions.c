@@ -20,7 +20,7 @@ char **cut_string_by_coma(char *input)
     char **array = malloc(MAX_STRINGS * sizeof(char *));
     if (!array)
     {
-        fprintf(stderr, "Memory allocation error\n");
+        fprintf(stderr, "Couldn't Allocate Memory\n");
         exit(1);
     }
 
@@ -38,7 +38,7 @@ char **cut_string_by_coma(char *input)
         array[count] = malloc((strlen(token) + 1) * sizeof(char));
         if (!array[count])
         {
-            fprintf(stderr, "Memory allocation error\n");
+            fprintf(stderr, "Couldn't Allocate Memory\n");
             exit(1);
         }
         strcpy(array[count], token);
@@ -86,7 +86,7 @@ char *int_to_string(int value)
     char *result = malloc(sizeof(char) * (strlen(buffer) + 1));
     if (result == NULL)
     {
-        fprintf(stderr, "Memory allocation failed\n");
+        fprintf(stderr, "Couldn't Allocate Memory\n");
         return NULL;
     }
     strcpy(result, buffer);
@@ -129,8 +129,6 @@ int evaluate_condition(int left, int right, const char *operation)
         return true;
     if (strcmp(operation, "FALSE") == 0)
         return false;
-    printf("Invalid operation: %s\n", operation);
-    printf("NOT_SUPPORTED_ERROR");
     return 0;
 }
 
@@ -162,12 +160,12 @@ CutString *split_string(char *input, char delimiter)
     CutString *pair = malloc(sizeof(CutString));
     if (!pair)
     {
-        printf("MEMORY_ALLOCATION_ERROR");
+        printf("Couldn't Allocate Memory\n");
     }
     char *delimiter_position = strchr(input, delimiter);
     if (!delimiter_position)
     {
-        fprintf(stderr, "Delimiter not exist in the input string\n");
+        fprintf(stderr, "The Delimiter Dosen't Exist\n");
         free(pair);
         return NULL;
     }
@@ -177,7 +175,7 @@ CutString *split_string(char *input, char delimiter)
     pair->right = malloc((right_length + 1) * sizeof(char));
     if (!pair->left || !pair->right)
     {
-        fprintf(stderr, "Memory allocation failed\n");
+        fprintf(stderr, "Couldn't Allocate Memory\n");
         free(pair->left);
         free(pair->right);
         free(pair);
@@ -195,7 +193,7 @@ char **concat_arrays(char **left, char **right, int left_size, int right_size)
     char **merged_array = malloc(total_size * sizeof(*merged_array));
     if (merged_array == NULL)
     {
-        fprintf(stderr, "Memory allocation failed\n");
+        fprintf(stderr, "Couldn't Allocate Memory\n");
         exit(EXIT_FAILURE);
     }
 
@@ -204,7 +202,6 @@ char **concat_arrays(char **left, char **right, int left_size, int right_size)
         merged_array[i] = strdup_func(left[i]);
         if (merged_array[i] == NULL)
         {
-            fprintf(stderr, "Memory allocation failed for left[%d]\n", i);
             for (int j = 0; j < i; j++)
             {
                 free(merged_array[j]);
@@ -219,7 +216,6 @@ char **concat_arrays(char **left, char **right, int left_size, int right_size)
         merged_array[i + left_size] = strdup_func(right[i]);
         if (merged_array[i + left_size] == NULL)
         {
-            fprintf(stderr, "Memory allocation failed for right[%d]\n", i);
             for (int j = 0; j < left_size + i; j++)
             {
                 free(merged_array[j]);
@@ -242,7 +238,7 @@ char *strdup_func(const char *s)
     char *dup = (char *)malloc(strlen(s) + 1);
     if (dup == NULL)
     {
-        fprintf(stderr, "Memory allocation failed\n");
+        fprintf(stderr, "Couldn't Allocate Memory\n");
         exit(EXIT_FAILURE);
     }
     strcpy(dup, s);
@@ -288,7 +284,7 @@ char **translate_to_statements(char *block)
     char **statements = malloc(MAX_STATEMENTS * sizeof(char *));
     if (!statements)
     {
-        fprintf(stderr, "Memory allocation error\n");
+        fprintf(stderr, "Couldn't Allocate Memory\n");
         exit(1);
     }
 
@@ -301,7 +297,7 @@ char **translate_to_statements(char *block)
         statements[count] = malloc((strlen(token) + 1) * sizeof(char));
         if (!statements[count])
         {
-            fprintf(stderr, "Memory allocation error\n");
+            fprintf(stderr, "Couldn't Allocate Memory\n");
             exit(1);
         }
         strcpy(statements[count], token);
@@ -320,7 +316,7 @@ char **exstract_strings(char **left_array, char **right_array, int left_size, in
     char **result = malloc(sizeof(char *) * (result_size + 1));
     if (!result)
     {
-        printf("MEMORY_ALLOCATION_ERROR");
+        printf("Couldn't Allocate Memory");
         return NULL;
     }
 
@@ -362,7 +358,6 @@ char **handle_each_literal(const char *contentBlock, int *num_statements)
 {
     if (contentBlock == NULL)
     {
-        fprintf(stderr, "Error: Block content is NULL.\n");
         *num_statements = 0;
         return NULL;
     }
@@ -370,7 +365,7 @@ char **handle_each_literal(const char *contentBlock, int *num_statements)
     char *content_copy = strdup(contentBlock);
     if (content_copy == NULL)
     {
-        fprintf(stderr, "Error: Unable to allocate memory for content copy.\n");
+        fprintf(stderr, "Couldn't Allocate Memory\n");
         *num_statements = 0;
         return NULL;
     }
@@ -387,7 +382,7 @@ char **handle_each_literal(const char *contentBlock, int *num_statements)
             char **temp_statements = realloc(statements, sizeof(char *) * (count + 1));
             if (temp_statements == NULL)
             {
-                fprintf(stderr, "Error: Unable to allocate memory for statements array.\n");
+                fprintf(stderr, "Couldn't Allocate Memory\n");
                 free(content_copy);
                 for (int i = 0; i < count; ++i)
                 {
@@ -398,10 +393,10 @@ char **handle_each_literal(const char *contentBlock, int *num_statements)
                 return NULL;
             }
             statements = temp_statements;
-            statements[count] = strdup(trimmed_line); // Store the trimmed statement
+            statements[count] = strdup(trimmed_line);
             if (statements[count] == NULL)
             {
-                fprintf(stderr, "Error: Unable to allocate memory for statement.\n");
+                fprintf(stderr, "Couldn't Allocate Memory\n");
                 free(content_copy);
                 for (int i = 0; i < count; ++i)
                 {
@@ -422,7 +417,7 @@ char **handle_each_literal(const char *contentBlock, int *num_statements)
     char **temp_statements = realloc(statements, sizeof(char *) * (count + 1));
     if (temp_statements == NULL)
     {
-        fprintf(stderr, "Error: Unable to allocate memory for NULL terminator.\n");
+        fprintf(stderr, "Couldn't Allocate Memory\n");
         for (int i = 0; i < count; ++i)
         {
             free(statements[i]);
@@ -456,7 +451,7 @@ char *get_first_word(const char *str)
     char *word = (char *)malloc(length + 1);
     if (word == NULL)
     {
-        fprintf(stderr, "Error: Unable to allocate memory for first word.\n");
+        fprintf(stderr, "Couldn't Allocate Memory\n");
         return NULL;
     }
 

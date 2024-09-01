@@ -4,7 +4,6 @@
 #include "All_Data.h"
 #include "stack_manager.h"
 #include "utility_functions.h"
-// #include  "error_management.h"
 /**/
 extern                  int yylex(void);
 extern                  int yyparse(void);
@@ -94,7 +93,6 @@ declaration :
                     | IDENTIFIER ASSIGN LBRACE string_list RBRACE SEMICOLON    {
                         Node_struct *current_node = search_node(head, $1);
                         set_variables(current_node, $4.vars, $4.count);
-                        //free($4.vars);
                     }
                     | IDENTIFIER ASSIGN LBRACKET number_list RBRACKET SEMICOLON { 
                         if($4.vars[0] != 0){
@@ -188,26 +186,26 @@ if_statement:
         | IF LPAREN IDENTIFIER conditions type RPAREN LBRACE operation RBRACE  {
                 char **ids = (char **)malloc(4 * sizeof(char *));
                 if($5 < 100 && $5 > 0){
-                    ids[2] = int_to_string($5); //int
+                    ids[2] = int_to_string($5); 
                 }else{
-                    ids[2] = $5; //string
+                    ids[2] = $5; 
                 }
-                ids[0] = $3; //identifier
-                ids[1] = $4; //condition
-                ids[3] = NULL; //padding
+                ids[0] = $3; 
+                ids[1] = $4;
+                ids[3] = NULL;
                 Statement *stmt = createStatement(IF_STATEMENT,ids);
                 pushStatement(&statement_stack,stmt);
         }
         | IF LPAREN operators conditions list  RPAREN continue {
             char **ids = (char **)malloc(4 * sizeof(char *));
                 if($5.vars < 100 && $5.vars > 0){
-                    ids[2] = int_to_string($5.vars); //int
+                    ids[2] = int_to_string($5.vars); 
                 }else{
-                    ids[2] = $5.vars; //string
+                    ids[2] = $5.vars;
                 }
-                ids[0] = $3; //identifier
-                ids[1] = $4; //condition
-                ids[3] = NULL; //padding
+                ids[0] = $3; 
+                ids[1] = $4; 
+                ids[3] = NULL; 
                 Statement *stmt = createStatement(IF_STATEMENT,ids);
                 pushStatement(&statement_stack,stmt);
         }
@@ -217,13 +215,13 @@ if_else :
         | IF LPAREN IDENTIFIER conditions type RPAREN operation ELSE operation {
             char **ids = (char **)malloc(4 * sizeof(char *));
             if($5 < 100 && $5 > 0){
-                ids[2] = int_to_string($5); //int
+                ids[2] = int_to_string($5); 
             }else{
-                ids[2] = $5; //string
+                ids[2] = $5; 
             }
-            ids[0] = $3; //identifier
-            ids[1] = $4; //condition
-            ids[3] = NULL; //padding
+            ids[0] = $3; 
+            ids[1] = $4; 
+            ids[3] = NULL; 
             Statement *stmt = createStatement(IF_ELSE_STATEMENT,ids);
             pushStatement(&statement_stack,stmt);
         } 
@@ -231,9 +229,9 @@ output_statement:
         | OUTPUT STRING_LITERAL IDENTIFIER operators type operators LPAREN operators RPAREN SEMICOLON  operation{
             char **ids =  malloc(4 * sizeof(char *));
             if($3 < 100 && $3 > 0){
-                ids[1] = int_to_string($3); //int
+                ids[1] = int_to_string($3); 
             }else{
-                ids[1] = $3; //string
+                ids[1] = $3;
             }
             ids[0] = $2;
             ids[2] = $8;
@@ -252,9 +250,9 @@ output_statement:
         | OUTPUT STRING_LITERAL operators  SEMICOLON operation {         
             char **ids =  malloc(4 * sizeof(char *));
             if($3 < 100 && $3 > 0){
-                ids[1] = int_to_string($3); //int
+                ids[1] = int_to_string($3); 
             }else{
-                ids[1] = $3; //string
+                ids[1] = $3;
             }
             ids[0] = $2;
             ids[2] = NULL;
@@ -280,10 +278,10 @@ input_statement:
 assignment:
         | IDENTIFIER ASSIGN IDENTIFIER operators IDENTIFIER SEMICOLON continue {
             char **ids =  malloc(5 * sizeof(char *));
-            ids[0] = $1; //MAIN
-            ids[1] = $3; //LEFT
-            ids[2] = $4; //OPERATOR
-            ids[3] = $5; //RIGHT
+            ids[0] = $1; 
+            ids[1] = $3; 
+            ids[2] = $4; 
+            ids[3] = $5; 
             ids[4] = NULL;
             Statement *new_statement = create_assign_statement(ids);
             pushStatement(&statement_stack, new_statement);
@@ -326,10 +324,10 @@ assignment:
         }
         | IDENTIFIER ASSIGN IDENTIFIER operators type SEMICOLON continue {
             char **ids =  malloc(5 * sizeof(char *));
-            ids[0] = $1; //MAIN
-            ids[1] = $3; //LEFT
-            ids[2] = $4; //OPERATOR
-            ids[3] = $5; //RIGHT
+            ids[0] = $1;
+            ids[1] = $3;
+            ids[2] = $4;
+            ids[3] = $5;
             ids[4] = NULL;
             Statement *new_statement = create_assign_statement(ids);
             pushStatement(&statement_stack, new_statement);
@@ -341,10 +339,10 @@ assignment:
 u_var_list:
         IDENTIFIER {
             $$ = (struct u_var_list){ malloc(sizeof(char *)), 1 };
-            $$ .vars[0] = $1;  // Set $$ to the value of IDENTIFIER
+            $$ .vars[0] = $1;
     
         }
-        | u_var_list COMMA IDENTIFIER {                                   //padding for memory allocate
+        | u_var_list COMMA IDENTIFIER {                          
             $$ = (struct u_var_list){ realloc($1.vars, sizeof(char *) * ($1.count + 2)), $1.count + 1 };
             if ($$ .vars == NULL) {
                 fprintf(stderr, "Out of memory\n");
@@ -468,7 +466,7 @@ list:
         $$ = (struct u_var_list) { malloc(sizeof(char *)), 1 };
         $$.vars = (char **)malloc(sizeof(char *) * (count + 1));
         for (int i = 0; i < count; i++) {
-            $$.vars[i] = strdup($2.vars[i]);  // Use strdup to duplicate the string
+            $$.vars[i] = strdup($2.vars[i]);
         }
         $$.count = count;
         $$.vars[count] = NULL;

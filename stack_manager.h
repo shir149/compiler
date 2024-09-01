@@ -25,7 +25,6 @@ typedef struct
     int capacity;
 } StatementStack;
 
-
 void initStack(StatementStack *stack);
 
 void pushStatement(StatementStack *stack, Statement *stmt);
